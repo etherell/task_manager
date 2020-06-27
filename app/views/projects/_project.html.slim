@@ -1,0 +1,15 @@
+div[class="project-#{project.id}"]
+  .row.justify-content-center.mt-2
+    .card.border-info.mb-3 style=("min-width: 50%") 
+      .card-header.bg-info.text-white
+        .row(class="project-title-#{project.id}")
+          h5.col-lg-10.col-md-8.mt-2
+            = fa_icon "calendar", class: "mr-2"
+            = project.title
+          .btn-group.col-lg-2.col-md-4
+            = link_to edit_project_path(project), class: "btn btn-warning", remote: true do
+              = fa_icon "edit"
+            = link_to project_path(project), class: "btn btn-danger", method: :delete, remote: true do
+              = fa_icon "trash"
+      .card-body.text-dark
+        h5.card-title tasks

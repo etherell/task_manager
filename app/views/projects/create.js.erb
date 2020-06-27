@@ -1,0 +1,9 @@
+<% if @project.errors.empty? %> 
+  $('#projects').append('<%= j render @project %>');
+  $('.new-project-form').val('');
+  $('.new-project-form').removeClass('is-invalid');
+<% else %>
+  $('.new-project-form').addClass('is-invalid');
+<% end %>
+
+<%= render partial: 'shared/toaster' %>

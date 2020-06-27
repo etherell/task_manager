@@ -17,6 +17,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim', '~> 4.1'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'devise', '~> 4.7', '>= 4.7.2'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
