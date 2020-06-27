@@ -1,0 +1,8 @@
+= form_with model: @project, method: :patch, class: "form-group w-100 my-1 pb-0" do |f|
+  .input-group
+    = f.text_field :title, class: "edit-project-form-#{@project.id} form-control border", placeholder: "Edit project title"
+    .input-group-append
+      = f.submit "Edit", class: "btn btn-warning float-right" 
+    .input-group-append
+      = link_to "Delete", project_path(@project), class: "btn btn-danger", method: :delete, remote: true 
+        
