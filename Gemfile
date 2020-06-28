@@ -11,13 +11,14 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 # gem 'image_processing', '~> 1.2'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim', '~> 4.1'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
+gem 'cancancan', '~> 3.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

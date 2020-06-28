@@ -1,4 +1,4 @@
 = render partial: 'new'
 div id="projects"
-  = render @projects
-
+  - if @projects
+    = render @projects
