@@ -1,15 +1,17 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  a.navbar-brand href="#"  Task Manager
-  button.navbar-toggler aria-controls="navbarNav" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNav" data-toggle="collapse" type="button" 
-    span.navbar-toggler-icon
-  #navbarNav.collapse.navbar-collapse
-    ul.navbar-nav
-      li.nav-item.active
-        a.nav-link href="#" 
-          | Home
-          span.sr-only (current)
-      li.nav-item
-        a.nav-link href="#"  Features
-      li.nav-item
-        a.nav-link href="#"  Pricing
+  .container  
+    = link_to 'Task Manager', root_path, class: 'navbar-brand'
+    button.navbar-toggler aria-controls="navbarNav" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNav" data-toggle="collapse" type="button" 
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        - if current_user
+          li.nav-item
+            = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
+        - else
+          li.nav-item
+            = link_to 'Log in', new_user_session_path, class: 'nav-link'
+          li.nav-item
+            = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+
 

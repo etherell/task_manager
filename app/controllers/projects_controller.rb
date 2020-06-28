@@ -1,14 +1,16 @@
 class ProjectsController < ApplicationController
+  before_action :authenticate
+  load_and_authorize_resource :project
   before_action :find_project!, only: %i[edit update destroy]
   before_action :flash_clear
   respond_to :js
 
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.build(project_params)
     if @project.save
       flash[:success] = 'Project was successfully created.'
     else
@@ -49,5 +51,9 @@ class ProjectsController < ApplicationController
 
   def flash_clear
     flash.clear
+  end
+
+  def authenticate
+    redirect_to new_user_session_path unless current_user
   end
 end
