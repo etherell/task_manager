@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     flash.clear
     flash[:error] = exception.message
     respond_to do |f|
-      f.js { render partial: 'shared/unauthorized' }
+      f.js { render partial: 'shared/unauthorized', status: 401 }
     end
   end
 
