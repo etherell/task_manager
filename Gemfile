@@ -41,6 +41,8 @@ group :test do
   gem 'shoulda-matchers', '~> 4.3'
   gem 'rspec-html-matchers', '~> 0.9.2'
   gem 'factory_bot_rails', '~> 6.0'
+  gem 'faker', '~> 2.13'
+  gem 'pry', '~> 0.13.1'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

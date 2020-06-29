@@ -8,9 +8,9 @@ div[class="project-#{project.id}"]
             = project.title
           - if can? :manage, project
             .btn-group.col-lg-2.col-md-4
-              = link_to edit_project_path(project), class: "btn btn-warning", remote: true do
+              = link_to edit_project_path(project), class: "btn btn-warning edit-btn", remote: true do
                 = fa_icon "edit"
-              = link_to project_path(project), class: "btn btn-danger", method: :delete, remote: true do
+              = link_to project_path(project), class: "btn btn-danger delete-btn", method: :delete, remote: true do
                 = fa_icon "trash"
       .card-body.text-dark
         h5.card-title tasks

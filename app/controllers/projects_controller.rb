@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate
-  load_and_authorize_resource :project
+  load_and_authorize_resource :project, except: :create
   before_action :find_project!, only: %i[edit update destroy]
   before_action :flash_clear
   respond_to :js
@@ -55,5 +55,6 @@ class ProjectsController < ApplicationController
 
   def authenticate
     redirect_to new_user_session_path unless current_user
+    flash[:error] = 'Please, log in or sign up to continue'
   end
 end
