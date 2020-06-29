@@ -14,11 +14,6 @@ before_script:
 script:
 - bundle exec rspec
 - bundle exec rubocop --require rubocop-rails
-env:
-  global:
-  - RAILS_ENV=test
-  - PGUSER=postgres
-  - PGPORT=5432
 after_failure:
   - "cat ./config/database.yml"
   - "echo $RAILS_ENV"

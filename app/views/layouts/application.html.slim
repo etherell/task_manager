@@ -9,5 +9,6 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
     = render 'layouts/navbar'
-    = toastr_flash
+    = content_tag(:script) do
+      = render 'shared/toastr'
     = yield

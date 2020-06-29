@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   rescue_from CanCan::AccessDenied do |exception|
     flash.clear
     flash[:error] = exception.message
@@ -7,5 +6,4 @@ class ApplicationController < ActionController::Base
       f.js { render partial: 'shared/unauthorized', status: 401 }
     end
   end
-
 end

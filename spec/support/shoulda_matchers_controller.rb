@@ -1,1 +1,0 @@
-include Shoulda::Matchers::ActionController

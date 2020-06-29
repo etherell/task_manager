@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Projects", type: :request do
+RSpec.describe 'Projects', type: :request do
   let(:user) { create(:user) }
   let(:project) { create(:project, user: user) }
 
@@ -17,39 +17,39 @@ RSpec.describe "Projects", type: :request do
       subject
     end
 
-    it 'renders unauthorized partial' do 
+    it 'renders unauthorized partial' do
       expect(response).to render_template(partial: 'shared/_unauthorized')
     end
 
-    it 'has unauthorized status' do 
+    it 'has unauthorized status' do
       expect(response.status).to eq(401)
     end
 
-    it 'sets correct flash' do 
-      expect(controller).to set_flash[:error].to('You are not authorized to access this page.')
+    it 'sets correct flash' do
+      expect(flash[:error]).to eq('You are not authorized to access this page.')
     end
   end
 
   shared_examples 'a correct params response' do
     before { subject }
 
-    it "has success status" do
+    it 'has success status' do
       expect(response.status).to eq(200)
     end
 
-    it "adds success flash" do
-      expect(flash[:notice]).to eq(flash_message)
+    it 'adds success flash' do
+      expect(flash[:success]).to eq(flash_message)
     end
   end
 
   shared_examples 'an incorrect params response' do
     before { subject }
 
-    it "has unprocessable entity status" do
+    it 'has unprocessable entity status' do
       expect(response.status).to eq(422)
     end
 
-    it "adds error flash" do
+    it 'adds error flash' do
       expect(flash[:error]).to eq(flash_message)
     end
   end
@@ -60,8 +60,11 @@ RSpec.describe "Projects", type: :request do
       subject
     end
 
-    it 'redirects to log in page' do
+    it 'has 302 status' do
       expect(response.status).to eq(302)
+    end
+
+    it 'redirects to log in page' do
       expect(response).to redirect_to(new_user_session_path)
     end
 
@@ -71,163 +74,175 @@ RSpec.describe "Projects", type: :request do
   end
 
   describe '#index' do
-    subject { get root_path }
+    subject(:get_index) { get root_path }
 
-    context 'not logged in user' do
+    context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
     end
 
-    context "successful request" do
-      it "returns successful status" do
-        subject
+    context 'when request is successful' do
+      it 'returns successful status' do
+        get_index
         expect(response.status).to eq(200)
       end
 
-      it "render index template" do
-        subject
+      it 'renders index template' do
+        get_index
         expect(response.status).to render_template(:index)
       end
     end
 
-    context "without projects" do
-      it "returns no projects" do
-        subject
+    context 'without projects' do
+      it 'returns no projects' do
+        get_index
         expect(assigns(:projects)).to be_empty
       end
     end
 
-    context "with 5 projects" do
+    context 'with 5 projects' do
       let(:number_of_projects) { 5 }
       let!(:user_projects) { create_list(:project, number_of_projects, user: user) }
       let!(:random_projects) { create_list(:project, number_of_projects) }
-      
-      it "returns 5 projects" do
-        subject
+
+      before { get_index }
+
+      it 'returns 5 appropriate projects' do
         expect(assigns(:projects)).to match_array(user_projects)
-        expect(assigns(:projects)).to_not match_array(random_projects)
+      end
+
+      it 'doesn\'t returns random projects' do
+        expect(assigns(:projects)).not_to match_array(random_projects)
       end
     end
   end
 
-  describe "#edit" do
-    subject { get edit_project_path(project, format: :js), xhr: true }
+  describe '#edit' do
+    subject(:get_edit) { get edit_project_path(project, format: :js), xhr: true }
 
-    context 'not logged in user' do
+    context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
     end
-    
-    context "not authorized user" do
-      it_behaves_like "a not authorized error"
+
+    context 'with not authorized user' do
+      it_behaves_like 'a not authorized error'
     end
 
-    context "successful request" do
-      it "returns successful status" do
-        subject
+    context 'when request is successful' do
+      it 'returns successful status' do
+        get_edit
         expect(response.status).to eq(200)
       end
 
-      it "render edit template" do
-        subject
+      it 'render edit template' do
+        get_edit
         expect(response.status).to render_template(:edit)
       end
     end
   end
 
-  describe "#create" do
-    subject { post projects_path(project: project_params, format: :js) }
-    let(:project_params) { { title: "Test" } } 
+  describe '#create' do
+    subject(:create_project) { post projects_path(project: project_params, format: :js) }
 
-    context 'not logged in user' do
+    let(:project_params) { { title: 'Test' } }
+
+    context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
     end
 
-    context "correct params are passed" do
-      let(:flash_message) { "Project was successfully created." }
+    context 'with correct params' do
+      let(:flash_message) { 'Project was successfully created.' }
 
       it_behaves_like 'a correct params response'
 
-      it "adds new record" do
-        expect{ subject }.to change(Project, :count).by(1)
+      it 'adds new record' do
+        expect { create_project }.to change(Project, :count).by(1)
       end
-  
-      it "has correct user and title" do
-        subject
+
+      it 'has correct user and title' do
+        create_project
         expect(Project.last.user).to eq(user)
+      end
+
+      it 'has correct title' do
+        create_project
         expect(Project.last.title).to eq(project_params[:title])
       end
     end
 
-    context "incorrect params are passed" do
-      let(:project_params) { { title: "" } }
-      let(:flash_message) { "Title is too short (minimum is 3 characters)" }
+    context 'with incorrect params' do
+      let(:project_params) { { title: '' } }
+      let(:flash_message) { 'Title is too short (minimum is 3 characters)' }
 
       it_behaves_like 'an incorrect params response'
 
-      it "not adds new project" do
-        expect{ subject }.to change(Project, :count).by(0)  
+      it 'not adds new project' do
+        expect { create_project }.to change(Project, :count).by(0)
       end
     end
   end
 
-  describe "#update" do
-    subject { patch project_path(project, project: project_params, format: :js) }
-    let(:project_params) { { title: "Test" } }
+  describe '#update' do
+    subject(:update_project) do
+      patch project_path(project, project: project_params, format: :js)
+    end
 
-    context 'not logged in user' do
+    let(:project_params) { { title: 'Test' } }
+
+    context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
     end
 
-    context "not authorized user" do
-      it_behaves_like "a not authorized error"
+    context 'with not authorized user' do
+      it_behaves_like 'a not authorized error'
     end
 
-    context "correct params are passed" do
-      let(:flash_message) { "Project was successfully updated."}
+    context 'with correct params' do
+      let(:flash_message) { 'Project was successfully updated.' }
       let!(:title_before) { project.title }
 
       it_behaves_like 'a correct params response'
 
-      it "changes record title value" do
-        subject
+      it 'changes record title value' do
+        update_project
         expect(project.reload.title).not_to eq(title_before)
       end
     end
 
-    context "incorrect params are passed" do
-      let(:project_params) { { title: "" } }
-      let(:flash_message) { "Title is too short (minimum is 3 characters)" }
-      
+    context 'with incorrect params' do
+      let(:project_params) { { title: '' } }
+      let(:flash_message) { 'Title is too short (minimum is 3 characters)' }
+
       it_behaves_like 'an incorrect params response'
     end
   end
 
-  describe "#destroy" do
-    subject { delete project_path(project, format: :js) }
+  describe '#destroy' do
+    subject(:destroy_project) { delete project_path(project, format: :js) }
+
     let!(:project) { create(:project, user: user) }
-    
-    context 'not logged in user' do
+
+    context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
     end
 
-    context "not authorized user" do
-      it_behaves_like "a not authorized error"
+    context 'with not authorized user' do
+      it_behaves_like 'a not authorized error'
     end
 
-    context "successful request" do
-      it "has success status" do
-        subject
+    context 'when request is successful' do
+      it 'has success status' do
+        destroy_project
         expect(response.status).to eq(200)
       end
 
-      it "adds success flash" do
-        subject
-        expect(flash[:notice]).to eq("Project was successfully deleted.")
+      it 'adds success flash' do
+        destroy_project
+        expect(flash[:success]).to eq('Project was successfully deleted.')
       end
 
-      it "deletes record" do
-        expect{ subject }.to change(Project, :count).by(-1)
+      it 'deletes record' do
+        expect { destroy_project }.to change(Project, :count).by(-1)
       end
     end
   end
-
 end

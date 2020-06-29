@@ -1,4 +1,4 @@
-RSpec.describe "projects/_edit" do
+RSpec.describe 'projects/_edit' do
   let(:user) { create(:user) }
   let(:project) { create(:project, user: user) }
 
@@ -8,21 +8,21 @@ RSpec.describe "projects/_edit" do
     render
   end
 
-  context "edit project form" do
-    it "contains project title" do
-      expect(rendered).to match("#{project.title}")
+  describe 'edit project form' do
+    it 'contains project title' do
+      expect(rendered).to match(project.title.to_s)
     end
 
-    it "contains input with appropriate class" do
+    it 'contains input with appropriate class' do
       expect(rendered).to match("edit-project-form-#{project.id}")
     end
 
-    it "contains edit button" do
-      expect(rendered).to have_tag("input", with: { value: "Edit", type: "submit" })
+    it 'contains edit button' do
+      expect(rendered).to have_tag('input', with: { value: 'Edit', type: 'submit' })
     end
 
-    it "contains destroy button" do
-      expect(rendered).to have_tag("a") do
+    it 'contains destroy button' do
+      expect(rendered).to have_tag('a') do
         with_text 'Delete'
       end
     end
