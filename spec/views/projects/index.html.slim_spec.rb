@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "projects/index" do
+RSpec.describe 'projects/index' do
   let(:user) { create(:user) }
-  let(:number_of_projects) { 5 }
-  let!(:random_projects) { create_list(:project, number_of_projects) }
-  let!(:user_projects) { create_list(:project, number_of_projects, user: user) }
+  let(:quantity) { 5 }
+  let!(:random_projects) { create_list(:project, quantity) }
+  let!(:user_projects) { create_list(:project, quantity, user: user) }
 
   before do
     sign_in user
@@ -12,31 +12,34 @@ RSpec.describe "projects/index" do
     render
   end
 
-  describe "crete project form" do
-    it "contains input to create new project" do
-      expect(rendered).to have_tag("input", with: { class: "new-project-form" })
+  describe 'crete project form' do
+    it 'contains input to create new project' do
+      expect(rendered).to have_tag('input', with: { class: 'new-project-form' })
     end
 
-    it "contains add new project button" do
-      expect(rendered).to have_tag("input", with: { value: "Add new project" })
+    it 'contains add new project button' do
+      expect(rendered).to have_tag('input', with: { value: 'Add new project' })
     end
   end
 
-  describe "user projects" do
-    it "contains 5 projects with destroy and edit buttons" do
-      expect(rendered).to have_tag("a", count: number_of_projects, with: { class: "edit-btn" })
-      expect(rendered).to have_tag("a", count: number_of_projects, with: { class: "delete-btn" })
+  describe 'user projects' do
+    it 'contains 5 projects with edit buttons' do
+      expect(rendered).to have_tag('a', count: quantity, with: { class: 'edit-btn' })
     end
 
-    it "returns projects with appropriate titles" do
+    it 'contains 5 projects with delete buttons' do
+      expect(rendered).to have_tag('a', count: quantity, with: { class: 'delete-btn' })
+    end
+
+    it 'returns projects with appropriate titles' do
       user_projects.each do |project|
-        expect(rendered).to match("#{project.title}")
+        expect(rendered).to match(project.title.to_s)
       end
     end
 
     it "doesn't returns other user projects" do
       random_projects.each do |project|
-        expect(rendered).to_not match("#{project.title}")
+        expect(rendered).not_to match(project.title.to_s)
       end
     end
   end

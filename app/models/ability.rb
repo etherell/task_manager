@@ -4,9 +4,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.present?
-      can :manage, Project, user_id: user.id
-    end
+    can :manage, Project, user_id: user.id if user.present?
   end
-
 end

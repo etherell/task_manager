@@ -10,6 +10,12 @@ AllCops:
     - 'bin/**/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
+    - 'test/**/*'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/features/**/*'
+    - 'spec/views/**/*'
 
 Layout/LineLength:
   Max: 90

@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.build(project_params)
     if @project.save
-      flash[:notice] = 'Project was successfully created.'
+      flash[:success] = 'Project was successfully created.'
     else
       flash[:error] = @project.errors.full_messages.join("\n")
       render status: 422
@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:notice] = 'Project was successfully updated.'
+      flash[:success] = 'Project was successfully updated.'
     else
       flash[:error] = @project.errors.full_messages.join("\n")
       render status: 422
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     if @project.destroy
-      flash[:notice] = 'Project was successfully deleted.'
+      flash[:success] = 'Project was successfully deleted.'
     else
       flash[:error] = @project.errors.full_messages.join("\n")
       render status: 422
