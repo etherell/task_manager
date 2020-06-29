@@ -38,7 +38,7 @@ RSpec.describe "Projects", type: :request do
     end
 
     it "adds success flash" do
-      expect(flash[:success]).to eq(flash_message)
+      expect(flash[:notice]).to eq(flash_message)
     end
   end
 
@@ -221,7 +221,7 @@ RSpec.describe "Projects", type: :request do
 
       it "adds success flash" do
         subject
-        expect(flash[:success]).to eq("Project was successfully deleted.")
+        expect(flash[:notice]).to eq("Project was successfully deleted.")
       end
 
       it "deletes record" do

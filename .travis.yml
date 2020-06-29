@@ -1,0 +1,32 @@
+language: ruby
+rvm:
+- 2.5.5
+notifications:
+  email: false
+before_install:
+- nvm install --lts
+before_script:
+- cp config/database.travis.yml config/database.yml
+- bundle install --jobs=3 --retry=3
+- yarn
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+script:
+- bundle exec rspec
+- bundle exec rubocop --require rubocop-rails
+env:
+  global:
+  - RAILS_ENV=test
+  - PGUSER=postgres
+  - PGPORT=5432
+after_failure:
+  - "cat ./config/database.yml"
+  - "echo $RAILS_ENV"
+  - "bundle exec rake --version"
+cache:
+- bundler
+- yarn
+services:
+- postgresql
+addons:
+  postgresql: '9.4'
