@@ -1,5 +1,5 @@
 <% if @project.errors.empty? %>
-  $(".project-title-<%= @project.id %>").html("<%= j render 'project_title', project: @project %>");
+  $(".project-body-<%= @project.id %>").html("<%= j render 'projects/body', project: @project %>");
 <% else %>
   $('.edit-project-form-<%= @project.id %>').addClass('is-invalid');
 <% end %>

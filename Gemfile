@@ -8,6 +8,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'cancancan', '~> 3.1'
 gem 'codecov', '~> 0.1.17', require: false
 gem 'devise', '~> 4.7', '>= 4.7.2'
+gem 'draper', '~> 4.0', '>= 4.0.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '~> 1.2', '>= 1.2.3'
@@ -27,6 +28,7 @@ gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'pry-nav', '~> 0.3.0'
   gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
 end
 
@@ -42,7 +44,6 @@ group :test do
   gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
   gem 'factory_bot_rails', '~> 6.0'
   gem 'faker', '~> 2.13'
-  gem 'pry', '~> 0.13.1'
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec-html-matchers', '~> 0.9.2'
   gem 'selenium-webdriver'

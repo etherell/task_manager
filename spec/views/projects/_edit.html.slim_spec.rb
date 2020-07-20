@@ -17,14 +17,14 @@ RSpec.describe 'projects/_edit' do
       expect(rendered).to match("edit-project-form-#{project.id}")
     end
 
-    it 'contains edit button' do
-      expect(rendered).to have_tag('input', with: { value: 'Edit', type: 'submit' })
+    it 'contains edit button wit appropriate class and type' do
+      expect(rendered).to have_tag('button', with: {
+                                     class: 'btn-warning', type: 'submit'
+                                   })
     end
 
-    it 'contains destroy button' do
-      expect(rendered).to have_tag('a') do
-        with_text 'Delete'
-      end
+    it 'contains edit button wit appropriate value' do
+      expect(rendered).to match('<i class="fa fa-edit">')
     end
   end
 end

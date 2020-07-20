@@ -12,16 +12,6 @@ RSpec.describe 'projects/index' do
     render
   end
 
-  describe 'crete project form' do
-    it 'contains input to create new project' do
-      expect(rendered).to have_tag('input', with: { class: 'new-project-form' })
-    end
-
-    it 'contains add new project button' do
-      expect(rendered).to have_tag('input', with: { value: 'Add new project' })
-    end
-  end
-
   describe 'user projects' do
     it 'contains 5 projects with edit buttons' do
       expect(rendered).to have_tag('a', count: quantity, with: { class: 'edit-btn' })

@@ -1,0 +1,13 @@
+<% if @task.errors.full_messages.empty? %>
+  $(".task-body-<%= @task.id %>").html("<%= j render 'tasks/body', task: @task, project: @project %>");
+<% else %>
+  <% if flash[:error].include? "Description" %>
+    $('.edit-task-description-<%= @task.id %>').addClass('is-invalid');
+  <% end %>
+  
+  <% if flash[:error].include? "Deadline" %>
+    $('.edit-task-deadline-<%= @task.id %>').addClass('is-invalid');
+  <% end %>
+<% end %>
+
+<%= render partial: 'shared/toastr' %>

@@ -1,0 +1,12 @@
+h5.col-lg-7.col-md-6
+  = fa_icon "calendar", class: "mr-2"
+  = project.title
+- if can? :manage, project
+  .btn-group.col-lg-5.col-md-6.h-50
+    = link_to new_project_task_path(project), class: "btn btn-success add-task-btn", remote: true do
+      div #{fa_icon "plus"} Add task
+    = link_to edit_project_path(project), remote: true, class: "btn btn-warning edit-btn"  do
+      = fa_icon "edit"
+    = link_to project_path(project), class: "btn btn-danger delete-btn", remote: true, method: :delete do
+      = fa_icon "trash"
+    

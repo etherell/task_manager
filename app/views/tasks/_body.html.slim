@@ -1,0 +1,18 @@
+- task = task.decorate
+.row.h-100.align-items-center
+  .col-sm-6.my-1
+    = render partial: 'tasks/description', locals: {task: task}
+  .col-sm-3.my-1
+    div[class="#{task.time_class} text-white py-1 my-1 rounded text-center"]
+      = task.status
+  .col-sm-3.btn-group.h-50.my-1
+    - if task.is_done?
+      = link_to done_project_task_path(project, task), class: "btn btn-danger", remote: true, method: :patch do
+        = fa_icon "close"
+    - else
+      = link_to done_project_task_path(project, task), class: "btn btn-success", remote: true, method: :patch do
+        = fa_icon "check"
+    = link_to edit_project_task_path(project, task), remote: true, class: "btn btn-warning edit-task-btn"  do
+      = fa_icon "edit"
+    = link_to project_task_path(project, task), class: "btn btn-danger delete-btn", remote: true, method: :delete do
+      = fa_icon "trash"

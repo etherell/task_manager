@@ -1,0 +1,16 @@
+<% if @task.errors.messages.empty? %> 
+  $(".tasks-container-<%= @project.id %>").find('#tasks').append('<%= j render @task %>');
+  $('.create-task-description-<%= @project.id %>').val('').removeClass('is-invalid');
+  $('.create-task-deadline-<%= @project.id %>').val('').removeClass('is-invalid');
+
+<% else %>
+  <% if flash[:error].include? "Description" %>
+    $('.create-task-description-<%= @project.id %>').addClass('is-invalid');
+  <% end %>
+  
+  <% if flash[:error].include? "Deadline" %>
+    $('.create-task-deadline-<%= @project.id %>').addClass('is-invalid');
+  <% end %>
+<% end %>
+
+<%= render partial: 'shared/toastr' %>

@@ -1,0 +1,2 @@
+$(".task-body-<%= @task.id %>").html("<%= j render 'tasks/body', task: @task, project: @project %>");
+<%= render partial: 'shared/toastr' %>

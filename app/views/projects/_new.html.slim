@@ -1,7 +1,6 @@
-.row.justify-content-center.mt-2.inline-block
-  = form_with model: Project.new, class: "form-group w-50" do |f|
+.mt-2
+  = form_with model: Project.new, class: "form-group w-100" do |f|
     .input-group
       = f.text_field :title, class: "new-project-form form-control border", placeholder: "Enter project title"
       .input-group-append
-        = f.submit "Add new project", class: "btn btn-info float-right"
-      
+        = f.submit "Add new project", class: "btn btn-dark float-right add-new-project"

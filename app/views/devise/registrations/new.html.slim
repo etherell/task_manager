@@ -1,5 +1,5 @@
 .row.justify-content-center.mt-4
-  .card.border-info.mb-3 style=("min-width: 30%")
+  .card.border-dark.mb-3 style=("min-width: 30%")
     .row.justify-content-center.align-items-center
       .col-sm-11.mx-2
         h3.text-center.mt-3 Sign up
@@ -18,5 +18,5 @@
             = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
           .wrapper.text-center
             .btn-group.my-3
-              = f.submit "Sign up", class: "btn btn-info"
-              = link_to "Sign in", new_user_session_path, class: "btn btn-secondary"
+              = f.submit "Sign up", class: "btn btn-dark"
+              = link_to "Sign in", new_user_session_path, class: "btn btn-dark"
