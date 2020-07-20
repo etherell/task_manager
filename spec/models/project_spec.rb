@@ -43,8 +43,8 @@ RSpec.describe Project, type: :model do
     end
 
     context 'with long title' do
-      let(:data) { { title: ('a' * 51).to_s } }
-      let(:error_message) { 'Title is too long (maximum is 50 characters)' }
+      let(:data) { { title: ('a' * 76).to_s } }
+      let(:error_message) { 'Title is too long (maximum is 75 characters)' }
 
       it_behaves_like 'an object with errors'
     end

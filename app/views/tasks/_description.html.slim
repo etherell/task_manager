@@ -1,0 +1,7 @@
+div[class="task-description-#{task.id}"]
+  - if task.is_done
+    s
+      = task.description
+  - else 
+    = task.description
+    

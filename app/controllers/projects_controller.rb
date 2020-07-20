@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   respond_to :js
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.includes(:tasks)
   end
 
   def create
@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     if @project.save
       flash[:success] = 'Project was successfully created.'
     else
-      flash[:error] = @project.errors.full_messages.join("\n")
+      flash[:error] = @project.errors.full_messages.join('. ')
       render status: 422
     end
   end
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       flash[:success] = 'Project was successfully updated.'
     else
-      flash[:error] = @project.errors.full_messages.join("\n")
+      flash[:error] = @project.errors.full_messages.join('. ')
       render status: 422
     end
   end
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     if @project.destroy
       flash[:success] = 'Project was successfully deleted.'
     else
-      flash[:error] = @project.errors.full_messages.join("\n")
+      flash[:error] = 'Project wasn\'t deleted.'
       render status: 422
     end
   end

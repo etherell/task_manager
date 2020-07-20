@@ -1,0 +1,4 @@
+.card.mb-2[class="task-#{task.id}"]
+  .card-body[class="task-body-#{task.id}"]
+    = render partial: 'tasks/body', locals: {task: task, project: (project = @project || project)}
+      

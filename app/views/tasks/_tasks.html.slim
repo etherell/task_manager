@@ -1,0 +1,3 @@
+- project.tasks.each do |task|
+  - if task.description.present?
+    = render partial: 'tasks/task', locals: {task: task, project: project}

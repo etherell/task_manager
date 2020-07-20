@@ -1,0 +1,7 @@
+$(".task-body-<%= @task.id %>").html("<%= j render 'tasks/edit', project: @project, task: @task %>");
+
+flatpickr(".edit-task-deadline-<%= @task.id %>", {
+  altInput: true,
+  enableTime: true,
+  minDate: "today"
+})

@@ -1,0 +1,9 @@
+= form_with model: [project, task], class: "form-group edit-task-form", method: :patch, remote: true do |f|
+  .row.margin-auto
+    .col-sm-5.my-1
+      = f.text_field :description, class: "edit-task-description-#{task.id} form-control", label: false
+    .col-sm-5.my-1
+      = f.text_field :deadline, class: "edit-task-deadline-#{task.id} form-control", label: false
+    .col-sm-2.my-1
+      = button_tag type: 'submit',  class: 'btn btn-warning w-100', style: 'height: 38px' do
+        span #{fa_icon "edit"} Edit

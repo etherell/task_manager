@@ -1,0 +1,10 @@
+.d-none.new-task-form
+  = form_with model: [project, project.tasks.build], class: "form-group row", method: :post, remote: true do |f|
+    .col-sm-5.my-1
+      = f.text_field :description, class: "create-task-description-#{project.id} form-control", placeholder: "Enter task description", label: false
+    .col-sm-5.my-1
+      = f.text_field :deadline, class: "datepicker create-task-deadline-#{project.id} form-control border", placeholder: 'Pick task deadline date', label: false
+    .col-sm-2.my-1
+      = button_tag type: 'submit',  class: 'btn btn-success w-100' do
+        span #{fa_icon "plus"} Add
+          

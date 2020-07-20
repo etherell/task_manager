@@ -1,8 +1,0 @@
-h5.col-lg-10.col-md-8.mt-2
-  = fa_icon "calendar", class: "mr-2"
-  = project.title
-.btn-group.col-lg-2.col-md-4
-  = link_to edit_project_path(project), class: "btn btn-warning", remote: true do
-    = fa_icon "edit"
-  = link_to project_path(project), class: "btn btn-danger", method: :delete, remote: true do
-    = fa_icon "trash"
