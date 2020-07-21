@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root 'projects#index'
   resources :projects do
     resources :tasks do
-      patch 'done', on: :member
+      member do
+        patch 'done'
+        patch 'move'
+      end
     end
   end
 end

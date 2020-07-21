@@ -10,7 +10,6 @@ class CreateTasks < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    
-    add_index :tasks, :position, unique: true
+  
   end
 end

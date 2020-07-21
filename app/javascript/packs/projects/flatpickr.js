@@ -6,8 +6,7 @@ function setFlatpickr() {
   })
 }
 
+window.setFlatpickr = setFlatpickr
+
 document.addEventListener("turbolinks:load", setFlatpickr);
 
-document.querySelector('.add-new-project').onclick = function() {
-  setTimeout(setFlatpickr, 200);
-};

@@ -1,6 +1,6 @@
 .mt-2
-  = form_with model: Project.new, class: "form-group w-100" do |f|
+  = form_with model: Project.new, class: "add-new-project-form form-group w-100" do |f|
     .input-group
       = f.text_field :title, class: "new-project-form form-control border", placeholder: "Enter project title"
       .input-group-append
-        = f.submit "Add new project", class: "btn btn-dark float-right add-new-project"
+        = f.submit "Add new project", class: "btn btn-dark float-right add-new-project-button"

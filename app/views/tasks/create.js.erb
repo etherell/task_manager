@@ -1,5 +1,5 @@
 <% if @task.errors.messages.empty? %> 
-  $(".tasks-container-<%= @project.id %>").find('#tasks').append('<%= j render @task %>');
+  $(".tasks-container-<%= @project.id %>").prepend('<%= j render @task %>');
   $('.create-task-description-<%= @project.id %>').val('').removeClass('is-invalid');
   $('.create-task-deadline-<%= @project.id %>').val('').removeClass('is-invalid');
 

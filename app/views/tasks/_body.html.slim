@@ -7,7 +7,7 @@
       = task.status
   .col-sm-3.btn-group.h-50.my-1
     - if task.is_done?
-      = link_to done_project_task_path(project, task), class: "btn btn-danger", remote: true, method: :patch do
+      = link_to done_project_task_path(project, task), class: "btn btn-dark", remote: true, method: :patch do
         = fa_icon "close"
     - else
       = link_to done_project_task_path(project, task), class: "btn btn-success", remote: true, method: :patch do
