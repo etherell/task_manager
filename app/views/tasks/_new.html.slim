@@ -1,5 +1,5 @@
-.d-none.new-task-form
-  = form_with model: [project, project.tasks.build], class: "form-group row", method: :post, remote: true do |f|
+.d-none.new-task-form.w-100.mt-3
+  = form_with model: [project, project.tasks.build], class: "align-items-center row", method: :post, remote: true do |f|
     .col-sm-5.my-1
       = f.text_field :description, class: "create-task-description-#{project.id} form-control", placeholder: "Enter task description", label: false
     .col-sm-5.my-1

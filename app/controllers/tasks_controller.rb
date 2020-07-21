@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :find_project!
-  before_action :find_task!, only: %i[edit update destroy done]
+  before_action :find_task!, except: %i[new create]
   before_action :flash_clear
   respond_to :js
 
@@ -46,6 +46,17 @@ class TasksController < ApplicationController
     end
   end
 
+  def move
+    result, message = Tasks::MoveService.call(
+      @task, @project, params[:target_tasks_ids], params[:source_tasks_ids]
+    )
+    if result
+      flash[:success] = message
+    else
+      flash[:error] = message
+    end
+  end
+
   private
 
   def find_project!
@@ -53,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def find_task!
-    @task = @project.tasks.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def task_params
