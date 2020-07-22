@@ -1,6 +1,6 @@
 <% if @project.errors.empty? %>
   $(".project-body-<%= @project.id %>").html("<%= j render 'projects/body', project: @project %>");
 <% else %>
-  $('.edit-project-form-<%= @project.id %>').addClass('is-invalid');
+  $('.edit-project-title-<%= @project.id %>').addClass('is-invalid');
 <% end %>
 <%= render partial: 'shared/toastr' %>

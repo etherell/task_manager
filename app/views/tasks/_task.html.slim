@@ -1,4 +1,3 @@
 .card.mb-2[class="task task-#{task.id}" data-task-id="#{task.id}" style="cursor: grab"]
   .card-body[class="task-body-#{task.id}"]
-    = render partial: 'tasks/body', locals: {task: task, project: (project = @project || project)}
-      
+    = render partial: 'tasks/body', locals: { task: task, project: project }

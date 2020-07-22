@@ -2,22 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Project, type: :model do
   let(:project) { build(:project) }
+  let(:object) { project }
 
   it { is_expected.to belong_to(:user) }
-
-  shared_examples 'an object with errors' do
-    it 'returns appropriate error message' do
-      project.update(data)
-      expect(project.errors.to_a).to include(error_message)
-    end
-  end
-
-  shared_examples 'an object without errors' do
-    it "doesn't return errors" do
-      project.update(data)
-      expect(project.errors.to_a).to be_empty
-    end
-  end
+  it { is_expected.to have_many(:tasks) }
 
   describe 'user presence' do
     context 'without user' do
@@ -53,6 +41,21 @@ RSpec.describe Project, type: :model do
       let(:data) { { title: ('a' * 25).to_s } }
 
       it_behaves_like 'an object without errors'
+    end
+  end
+
+  describe '#last_task_position' do
+    subject(:last_position) { project.last_task_position }
+
+    context 'without tasks' do
+      it { expect(last_position).to be_nil }
+    end
+
+    context 'with tasks' do
+      let(:tasks_quantity) { 10 }
+      let(:project) { create(:project_with_tasks, tasks_count: tasks_quantity) }
+
+      it { expect(last_position).to eq(tasks_quantity) }
     end
   end
 end

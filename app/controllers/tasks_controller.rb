@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+  before_action :authenticate
+  load_and_authorize_resource :project
+  load_and_authorize_resource :task, through: :project, except: %i[move create new]
   before_action :find_project!
   before_action :find_task!, except: %i[new create]
   before_action :flash_clear
@@ -28,7 +31,7 @@ class TasksController < ApplicationController
   def edit; end
 
   def destroy
-    if @task.destroy
+    if Tasks::DestroyService.call(@project, @task)
       flash[:success] = 'Task was successfully deleted.'
     else
       flash[:error] = 'Task wasn\'t deleted'
@@ -47,13 +50,13 @@ class TasksController < ApplicationController
   end
 
   def move
-    result, message = Tasks::MoveService.call(
+    if Tasks::MoveService.call(
       @task, @project, params[:target_tasks_ids], params[:source_tasks_ids]
     )
-    if result
-      flash[:success] = message
+      flash[:success] = 'Task was successfully moved.'
     else
-      flash[:error] = message
+      flash[:error] = 'Task wasn\'t moved.'
+      render status: 422
     end
   end
 
@@ -69,9 +72,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:description, :deadline)
-  end
-
-  def flash_clear
-    flash.clear
   end
 end

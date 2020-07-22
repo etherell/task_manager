@@ -1,2 +1,6 @@
 $(".project-<%= @project.id %>").find(".new-task-form").toggleClass("d-none");
 
+new TaskFormValidator('.add-task-btn-<%= @project.id %>',
+                      '.add-task-description-<%= @project.id %>',
+                      '.add-task-deadline-<%= @project.id %>').setForDescription()
+                                                              .setForDeadline()

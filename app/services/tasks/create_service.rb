@@ -11,14 +11,8 @@ module Tasks
     def call
       task = project.tasks.build(task_params)
       task.user = user
-      task.position = calculate_position
+      task.position = project.last_task_position
       task
-    end
-
-    private
-
-    def calculate_position
-      project.last_task_position.to_i + 1
     end
   end
 end

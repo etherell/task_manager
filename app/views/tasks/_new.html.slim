@@ -1,10 +1,9 @@
 .d-none.new-task-form.w-100.mt-3
-  = form_with model: [project, project.tasks.build], class: "align-items-center row", method: :post, remote: true do |f|
+  = form_with model: [project, project.tasks.build], class: 'align-items-center row', method: :post, remote: true do |f|
     .col-sm-5.my-1
-      = f.text_field :description, class: "create-task-description-#{project.id} form-control", placeholder: "Enter task description", label: false
+      = f.text_field :description, class: "add-task-description-#{project.id} form-control", placeholder: 'Enter task description', label: false
     .col-sm-5.my-1
-      = f.text_field :deadline, class: "datepicker create-task-deadline-#{project.id} form-control border", placeholder: 'Pick task deadline date', label: false
+      = f.text_field :deadline, class: "add-task-deadline-#{project.id} datepicker form-control is-valid", placeholder: 'Pick task deadline date', label: false
     .col-sm-2.my-1
-      = button_tag type: 'submit',  class: 'btn btn-success w-100' do
-        span #{fa_icon "plus"} Add
-          
+      = button_tag type: 'submit',  class: "add-task-btn-#{project.id} btn btn btn-dark text-success border border-secondary w-100", disabled: true do
+        span #{fa_icon 'plus'} Add

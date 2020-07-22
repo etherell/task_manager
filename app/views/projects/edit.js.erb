@@ -1,2 +1,3 @@
-$(".project-body-<%= @project.id %>").html("<%= j render 'projects/edit' %>");
+$(".project-body-<%= @project.id %>").html("<%= j render 'projects/edit', project: @project %>");
 
+setProjectFormValidation('.edit-project-button-<%= @project.id %>', '.edit-project-title-<%= @project.id %>')

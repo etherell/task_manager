@@ -1,9 +1,11 @@
-<% if @project.errors.empty? %> 
+<% if @project.errors.empty? %>
   $('#projects').prepend('<%= j render @project %>');
-  $('.new-project-form').val('');
-  $('.new-project-form').removeClass('is-invalid');
-  setTimeout(setFlatpickr, 500);
+  $('.add-project-form-container').replaceWith('<%= j render 'projects/new' %>');
+
+  setProjectFormValidation('.add-project-button', '.add-project-title');
+  setFlatpickr('.add-task-deadline-<%= @project.id %>');
 <% else %>
-  $('.new-project-form').addClass('is-invalid');
+  $('.add-project-title').addClass('is-invalid');
 <% end %>
+
 <%= render partial: 'shared/toastr' %>

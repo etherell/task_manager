@@ -1,77 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Projects', type: :request do
-  let(:user) { create(:user) }
-  let(:project) { create(:project, user: user) }
-
-  before do
-    sign_in user
-  end
-
-  shared_examples 'a not authorized error' do
-    let(:another_user) { create(:user) }
-
-    before do
-      sign_out user
-      sign_in another_user
-      subject
-    end
-
-    it 'renders unauthorized partial' do
-      expect(response).to render_template(partial: 'shared/_unauthorized')
-    end
-
-    it 'has unauthorized status' do
-      expect(response.status).to eq(401)
-    end
-
-    it 'sets correct flash' do
-      expect(flash[:error]).to eq('You are not authorized to access this page.')
-    end
-  end
-
-  shared_examples 'a correct params response' do
-    before { subject }
-
-    it 'has success status' do
-      expect(response.status).to eq(200)
-    end
-
-    it 'adds success flash' do
-      expect(flash[:success]).to eq(flash_message)
-    end
-  end
-
-  shared_examples 'an incorrect params response' do
-    before { subject }
-
-    it 'has unprocessable entity status' do
-      expect(response.status).to eq(422)
-    end
-
-    it 'adds error flash' do
-      expect(flash[:error]).to eq(flash_message)
-    end
-  end
-
-  shared_examples 'a not logged in error' do
-    before do
-      sign_out user
-      subject
-    end
-
-    it 'has 302 status' do
-      expect(response.status).to eq(302)
-    end
-
-    it 'redirects to log in page' do
-      expect(response).to redirect_to(new_user_session_path)
-    end
-
-    it 'returns appropriate flash' do
-      expect(flash[:error]).to eq('Please, log in or sign up to continue')
-    end
-  end
+  include_context 'with logged in user with project and task'
 
   describe '#index' do
     subject(:get_index) { get root_path }
@@ -143,7 +73,8 @@ RSpec.describe 'Projects', type: :request do
   describe '#create' do
     subject(:create_project) { post projects_path(project: project_params, format: :js) }
 
-    let(:project_params) { { title: 'Test' } }
+    let(:project_params) { { title: title } }
+    let(:title) { 'Test' }
 
     context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
@@ -169,9 +100,20 @@ RSpec.describe 'Projects', type: :request do
       end
     end
 
-    context 'with incorrect params' do
-      let(:project_params) { { title: '' } }
+    context 'with short title' do
+      let(:title) { '' }
       let(:flash_message) { 'Title is too short (minimum is 3 characters)' }
+
+      it_behaves_like 'an incorrect params response'
+
+      it 'not adds new project' do
+        expect { create_project }.to change(Project, :count).by(0)
+      end
+    end
+
+    context 'with long title' do
+      let(:title) { 'a' * 76 }
+      let(:flash_message) { 'Title is too long (maximum is 75 characters)' }
 
       it_behaves_like 'an incorrect params response'
 
@@ -186,7 +128,8 @@ RSpec.describe 'Projects', type: :request do
       patch project_path(project, project: project_params, format: :js)
     end
 
-    let(:project_params) { { title: 'Test' } }
+    let(:project_params) { { title: title } }
+    let(:title) { 'Test' }
 
     context 'with not logged in user' do
       it_behaves_like 'a not logged in error'
@@ -208,11 +151,26 @@ RSpec.describe 'Projects', type: :request do
       end
     end
 
-    context 'with incorrect params' do
-      let(:project_params) { { title: '' } }
+    context 'with short title' do
+      let(:title) { '' }
       let(:flash_message) { 'Title is too short (minimum is 3 characters)' }
 
       it_behaves_like 'an incorrect params response'
+
+      it 'not changes title value' do
+        expect(project.reload.title).not_to eq(title)
+      end
+    end
+
+    context 'with long title' do
+      let(:title) { 'a' * 76 }
+      let(:flash_message) { 'Title is too long (maximum is 75 characters)' }
+
+      it_behaves_like 'an incorrect params response'
+
+      it 'not changes title value' do
+        expect(project.reload.title).not_to eq(title)
+      end
     end
   end
 
@@ -242,6 +200,20 @@ RSpec.describe 'Projects', type: :request do
 
       it 'deletes record' do
         expect { destroy_project }.to change(Project, :count).by(-1)
+      end
+    end
+
+    context 'with invalid params' do
+      let(:flash_message) { 'Project wasn\'t deleted.' }
+
+      before do
+        allow_any_instance_of(Project).to receive(:destroy).and_return(false)
+      end
+
+      it_behaves_like 'an incorrect params response'
+
+      it 'deletes no objects' do
+        expect { destroy_project }.not_to change(Project, :count)
       end
     end
   end

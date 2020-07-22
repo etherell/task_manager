@@ -1,8 +1,7 @@
-= form_with model: @project, method: :patch, class: "form-group w-100 my-1 pb-0" do |f|
+= form_with model: project, class: "form-group w-100 my-1 pb-0", method: :patch do |f|
   .row.h-100.align-items-center
     .col-sm-10.my-1
-      = f.text_field :title, class: "edit-project-form-#{@project.id} form-control border", placeholder: "Edit project title"
+      = f.text_field :title, class: "edit-project-title-#{project.id} form-control border is-valid", placeholder: "Edit project title"
     .col-sm-2.h-50.my-1
-      = button_tag type: 'submit', class: "btn btn-warning w-100" do
+      = button_tag type: 'submit', class: "edit-project-button-#{project.id} btn btn-dark text-warning border border-secondary w-100" do
         span #{fa_icon "edit"} Edit
-      

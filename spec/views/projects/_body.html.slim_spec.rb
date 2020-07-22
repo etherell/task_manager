@@ -1,10 +1,8 @@
-RSpec.describe 'projects/_project' do
-  let(:user) { create(:user) }
-  let(:project) { create(:project, user: user) }
+RSpec.describe 'projects/_body' do
+  include_context 'with logged in user with project and task'
 
   before do
-    sign_in user
-    render partial: 'projects/project.html.slim', locals: { project: project }
+    render partial: 'projects/body.html.slim', locals: { project: project }
   end
 
   describe 'project partial' do

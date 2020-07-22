@@ -11,13 +11,13 @@ class TaskDecorator < Draper::Decorator
 
   def time_class
     if is_done
-      'bg-success'
+      'text-success border border-success'
     elsif time_left > 86_400
-      'bg-dark'
+      'text-dark border border-dark'
     elsif time_left > 3600
-      'bg-warning'
+      'text-warning border border-warning'
     else
-      'bg-danger'
+      'text-danger border border-danger'
     end
   end
 

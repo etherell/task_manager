@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   respond_to :js
 
   def index
-    @projects = current_user.projects.includes(:tasks)
+    @projects = current_user.projects.includes(:tasks).order(created_at: :desc)
   end
 
   def create
@@ -47,14 +47,5 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title)
-  end
-
-  def flash_clear
-    flash.clear
-  end
-
-  def authenticate
-    redirect_to new_user_session_path unless current_user
-    flash[:error] = 'Please, log in or sign up to continue'
   end
 end

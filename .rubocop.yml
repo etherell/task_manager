@@ -26,7 +26,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - 'lib/tasks/auto_annotate_models.rake'
-    - 'config/environments/*.rb'    
+    - 'config/environments/*.rb'
     - 'config/routes.rb'
 
 Rails/FilePath:
@@ -36,6 +36,9 @@ Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+RSpec/AnyInstance:
   Enabled: false
 
 Lint/AmbiguousBlockAssociation:
