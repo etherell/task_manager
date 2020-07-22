@@ -1,6 +1,8 @@
-div id="projects"
+div id='projects'
   - if @projects
     = render @projects
 
-= javascript_pack_tag "projects/flatpickr"
-= javascript_pack_tag "tasks/move-task"
+= javascript_pack_tag 'shared/flatpickr'
+= javascript_pack_tag 'projects/form-validation'
+= javascript_pack_tag 'tasks/move-task'
+= javascript_pack_tag 'tasks/form-validation'

@@ -2,17 +2,20 @@ class Task < ApplicationRecord
   belongs_to :project
   belongs_to :user
 
-  validates :user, presence: true
-  validates :position, uniqueness: { scope: :project } # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :user, :project, :position, :deadline, presence: true
+  validates :position, uniqueness: { scope: :project }, unless: :skip_position_validation
   validates :description, length: { in: 3..255 }
-  validates :deadline, presence: true
-  validate :deadline_after_now?
+  validate  :deadline_after_now?, unless: :skip_deadline_validation
+
+  attr_accessor :skip_deadline_validation, :skip_position_validation
 
   def done!
+    self.skip_deadline_validation = true
     update(is_done: true)
   end
 
   def not_done!
+    self.skip_deadline_validation = true
     update(is_done: false)
   end
 

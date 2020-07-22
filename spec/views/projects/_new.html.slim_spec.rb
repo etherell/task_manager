@@ -1,15 +1,13 @@
 RSpec.describe 'projects/_new' do
-  let(:user) { create(:user) }
-  let(:project) { create(:project, user: user) }
+  include_context 'with logged in user with project and task'
 
   before do
-    sign_in user
-    render
+    render partial: 'projects/new.html.slim'
   end
 
   describe 'crete project form' do
     it 'contains input to create new project' do
-      expect(rendered).to have_tag('input', with: { class: 'new-project-form' })
+      expect(rendered).to have_tag('input', with: { class: 'add-project-title' })
     end
 
     it 'contains add new project button' do

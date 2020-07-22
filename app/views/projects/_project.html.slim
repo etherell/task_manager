@@ -5,7 +5,7 @@ div[class="project project-#{project.id}" data-project-id="#{project.id}"]
         .card-header.bg-dark.text-white
           .row.h-100.align-items-center(class="project-body-#{project.id}")
             = render partial: 'projects/body', locals: {project: project}
-            = render partial: 'tasks/new', locals: {project: project}
+          = render partial: 'tasks/new', locals: {project: project}
         .card-body.tasks-drag.text-dark[class="tasks-container-#{project.id}"]
           - if project.tasks.any?
             = render partial: 'tasks/tasks', locals: {project: project}

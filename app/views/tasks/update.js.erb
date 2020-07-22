@@ -4,7 +4,7 @@
   <% if flash[:error].include? "Description" %>
     $('.edit-task-description-<%= @task.id %>').addClass('is-invalid');
   <% end %>
-  
+
   <% if flash[:error].include? "Deadline" %>
     $('.edit-task-deadline-<%= @task.id %>').addClass('is-invalid');
   <% end %>

@@ -18,9 +18,9 @@ module Tasks
       Task.transaction do
         update_tasks_position(target_tasks_ids)
         update_tasks_position(source_tasks_ids) if source_tasks_ids.present?
-        return true, 'Message was successfully moved.'
+        return true
       rescue ActiveRecord::RecordInvalid
-        return false, 'Message wasn\'t moved.'
+        return false
       end
     end
 

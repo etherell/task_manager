@@ -1,3 +1,3 @@
-- project.tasks.each do |task|
-  - if task.description.present?
+- project.tasks.order(position: :asc).each do |task|
+  - if task.description?
     = render partial: 'tasks/task', locals: {task: task, project: project}

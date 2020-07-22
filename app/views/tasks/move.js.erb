@@ -1,1 +1,4 @@
+<% if flash[:succes].nil? %>
+  $(".task-body-<%= @task.id %>").html("<%= j render 'tasks/body', task: @task, project: @project %>")
+<% end %>
 <%= render partial: 'shared/toastr' %>

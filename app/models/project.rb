@@ -6,6 +6,6 @@ class Project < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def last_task_position
-    tasks.maximum(:position)
+    tasks.length.zero? ? nil : tasks.length
   end
 end
