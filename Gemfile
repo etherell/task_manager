@@ -22,7 +22,6 @@ gem 'sass-rails', '>= 6'
 gem 'simplecov', '~> 0.18.5', require: false
 gem 'simplecov-console', '~> 0.7.2', require: false
 gem 'slim', '~> 4.1'
-gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 
